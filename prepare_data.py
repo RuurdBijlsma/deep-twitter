@@ -17,4 +17,4 @@ def prepare_data(cursor, train=True):
     wv = KeyedVectors.load(model_name, mmap='r')
     computer_vec = wv['computer']
 
-    return 1, 2=
+    return 1, 2
