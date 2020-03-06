@@ -3,6 +3,7 @@ from scraper import user_tweets_to_db
 from prepare_data import prepare_data
 from network import train_network
 
+
 scrape = False
 user = "BarackObama"
 

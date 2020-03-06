@@ -1,2 +1,4 @@
 .idea
 tweets.db
+tweets.wv
+tweets.wv.model
