@@ -20,6 +20,7 @@ def init():
     print("Training network")
     network = train_network(input_sequence, output_sequence)
     print(f"Done training {network}")
+    # use_network_to_generate_text
 
 
 if __name__ == '__main__':
