@@ -1,9 +1,6 @@
-from twitterscraper import query_tweets
+from twitterscraper import query_tweets, query_tweets_from_user, query_user_info
 
-if __name__ == '__main__':
-    # Or save the retrieved tweets to file:
-    file = open("out/output.txt", "w")
-    for tweet in query_tweets("Trump OR Clinton", 10):
-        print(tweet.encode('utf-8'))
-        file.write(tweet.encode('utf-8'))
-    file.close()
+
+def user_tweets_to_db(cursor, user, limit=5):
+    for tweet in query_tweets_from_user(user, limit=limit):
+        cursor.execute('''INSERT INTO tweets VALUES(?,?,?)''', (None, tweet.text, tweet.screen_name))
