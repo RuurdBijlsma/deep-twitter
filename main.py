@@ -1,24 +1,30 @@
 from init_db import init_db
-from scraper import user_tweets_to_db
-from prepare_data import prepare_data
-from network import train_network
+from scraper import scrape_tweets_to_db
+from prepare_data import get_w2v_model
+from network import pre_train_model
+from csv_processor import import_csv_to_db
+from variables import twitter_user
 
-
-scrape = False
-user = "BarackObama"
+rebuild_db = True
+retrain_w2v = True
 
 
 def init():
-    db, cursor = init_db()
-    if scrape:
-        print(f"Scraping data from user {user}")
-        user_tweets_to_db(cursor, user, 4)
+    db, cursor = init_db(clean=rebuild_db)
+    if rebuild_db:
+        print("Importing csv to database")
+        import_csv_to_db(cursor)
+        print(f"Scraping data from user {twitter_user}")
+        scrape_tweets_to_db(cursor, twitter_user)
+        db.commit()
     else:
-        print("Skipping scrape")
+        print("Using existing database")
+
     print("Preparing data for neural network")
-    input_sequence, output_sequence = prepare_data(cursor)
+    w2v_model = get_w2v_model(cursor, retrain_w2v)
+    db.commit()
     print("Training network")
-    network = train_network(input_sequence, output_sequence)
+    network = pre_train_model(cursor, w2v_model)
     print(f"Done training {network}")
     # use_network_to_generate_text
 

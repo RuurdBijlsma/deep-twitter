@@ -1,4 +1,10 @@
 .idea
+training_tweets.csv
+tweets.wv*
 tweets.db
-tweets.wv
-tweets.wv.model
+tweets.wv.vocal
+tweets.wv.model*
+tweets.wv.vectors*
+tweets.db-journal
+__pycache__/
+cp.ckpt
