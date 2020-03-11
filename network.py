@@ -78,6 +78,7 @@ def pre_train_model(cursor, word_model):
 
     def on_epoch_end(epoch, _):
         print('\nGenerating text after epoch: %d' % epoch)
+        # TODO: Change prediction start thing from 55 yearrrrrs to styart of sentence token
         texts = [
             '55 years',
             'Protect yourself',

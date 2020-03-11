@@ -4,7 +4,7 @@ import csv
 def import_csv_to_db(cursor, csv_file_name="data/training_tweets.csv"):
     line = 0
     total_tweets = 1600000
-    tweet_limit = 10000
+    tweet_limit = 50000
     with open(csv_file_name, "rt") as csv_file:
         data_reader = csv.reader(csv_file)
         for [_, _, _, _, user, text] in data_reader:

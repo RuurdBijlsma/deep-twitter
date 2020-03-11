@@ -31,7 +31,7 @@ def train_tokenizer(cursor):
             f.write(text + "\n")
 
     print("Training tokenizer now")
-    sentencepiece.SentencePieceTrainer.Train(f'--input={vocab_file} --model_prefix=m --vocab_size=6000')
+    sentencepiece.SentencePieceTrainer.Train(f'--input={vocab_file} --model_prefix=m --vocab_size=10000')
     replace("m.model", tokenizer_model_file)
     replace("m.vocab", "data/tokenizer.vocab")
     print("Training tokenizer complete")
