@@ -5,8 +5,9 @@ from network import pre_train_model
 from csv_processor import import_csv_to_db
 from variables import twitter_user
 
-rebuild_db = True
+rebuild_db = False
 retrain_w2v = True
+retrain_tokenizer = True
 
 
 def init():
@@ -21,7 +22,7 @@ def init():
         print("Using existing database")
 
     print("Preparing data for neural network")
-    w2v_model = get_w2v_model(cursor, retrain_w2v)
+    w2v_model = get_w2v_model(cursor, retrain_w2v, retrain_tokenizer)
     db.commit()
     print("Training network")
     network = pre_train_model(cursor, w2v_model)

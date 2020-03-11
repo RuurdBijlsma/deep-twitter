@@ -8,3 +8,5 @@ tweets.wv.vectors*
 tweets.db-journal
 __pycache__/
 cp.ckpt
+tweets.txt
+tokenizer.*

@@ -17,7 +17,11 @@ def pre_train_model(cursor, word_model):
 
     cursor.execute("SELECT count(text) from tweets")
     (tweet_count,) = cursor.fetchone()
-    cursor.execute("SELECT max_sentence_length from metadata")
+    cursor.execute("""
+                    SELECT max_sentence_length
+                    FROM metadata
+                    WHERE id = (SELECT MAX(id) FROM metadata)
+                    """)
     (max_sentence_len,) = cursor.fetchone()
 
     pretrained_weights = word_model.wv.vectors
