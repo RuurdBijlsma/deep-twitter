@@ -5,7 +5,7 @@ from network import pre_train_model
 from csv_processor import import_csv_to_db
 from variables import twitter_user
 
-rebuild_db = True
+rebuild_db = False
 retrain_w2v = True
 retrain_tokenizer = True
 

@@ -1,15 +1,12 @@
 import numpy as np
-import gensim
-import string
 
 from keras.callbacks import LambdaCallback
 from keras.layers.recurrent import LSTM
 from keras.layers.embeddings import Embedding
 from keras.layers import Dense, Activation
 from keras.models import Sequential
-from nltk.tokenize import word_tokenize
 import keras
-from prepare_data import get_tokens
+from prepare_data import get_tokens, sp
 
 
 def pre_train_model(cursor, word_model):
@@ -74,14 +71,15 @@ def pre_train_model(cursor, word_model):
             prediction = model.predict(x=np.array(word_idxs))
             idx = sample(prediction[-1], temperature=0.7)
             word_idxs.append(idx)
-        return ' '.join(idx2word(idx) for idx in word_idxs)
+        return sp.decode_pieces(list(map(lambda idx: idx2word(idx), word_idxs)))
 
     def on_epoch_end(epoch, _):
         print('\nGenerating text after epoch: %d' % epoch)
         # TODO: Change prediction start thing from 55 yearrrrrs to styart of sentence token
         texts = [
-            '55 years',
-            'Protect yourself',
+            '<s>',
+            '<s>',
+            '<s>',
         ]
         for text in texts:
             sample = generate_next(text)

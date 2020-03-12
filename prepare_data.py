@@ -1,7 +1,7 @@
 from gensim.test.utils import common_texts, get_tmpfile
 from gensim.models import Word2Vec, KeyedVectors
 from variables import twitter_user
-from nltk.tokenize import word_tokenize
+# from nltk.tokenize import word_tokenize
 import sentencepiece
 # import nltk
 from os import cpu_count, replace
@@ -40,7 +40,7 @@ def train_tokenizer(cursor):
 def get_tokens(cursor):
     cursor.execute("SELECT text from tweets")
     for [row] in cursor:
-        tokens = sp.encode_as_pieces(row)
+        tokens = [sp.id_to_piece(sp.bos_id()), *sp.encode_as_pieces(row), sp.id_to_piece(sp.eos_id())]
         yield tokens
 
 
