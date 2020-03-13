@@ -12,7 +12,7 @@ from prepare_data import get_tokens, sp
 def pre_train_model(cursor, word_model):
     checkpoint_path = "data/cp.ckpt"
 
-    cursor.execute("SELECT count(text) from tweets")
+    cursor.execute("SELECT count(cleaned) from tweets")
     (tweet_count,) = cursor.fetchone()
     cursor.execute("""
                     SELECT max_sentence_length

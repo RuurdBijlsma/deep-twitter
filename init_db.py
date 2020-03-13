@@ -20,6 +20,7 @@ def init_db(db_name='data/tweets.db', clean=True):
                  (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     text TEXT NOT NULL,
+                    cleaned TEXT NOT NULL,
                     user TEXT NOT NULL
                   )
     """)

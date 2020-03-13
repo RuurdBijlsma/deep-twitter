@@ -1,6 +1,6 @@
 from init_db import init_db
 from scraper import scrape_tweets_to_db
-from prepare_data import get_w2v_model
+from prepare_data import get_w2v_model, export_tweets_to_file
 from network import pre_train_model
 from csv_processor import import_csv_to_db
 from variables import twitter_user
@@ -17,6 +17,7 @@ def init():
         import_csv_to_db(cursor)
         print(f"Scraping data from user {twitter_user}")
         scrape_tweets_to_db(cursor, twitter_user)
+        export_tweets_to_file(cursor)
         db.commit()
     else:
         print("Using existing database")

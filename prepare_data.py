@@ -1,13 +1,24 @@
-from gensim.test.utils import common_texts, get_tmpfile
 from gensim.models import Word2Vec, KeyedVectors
-from variables import twitter_user
-# from nltk.tokenize import word_tokenize
 import sentencepiece
-# import nltk
 from os import cpu_count, replace
+from variables import tweet_limit
 
-# nltk.download('punkt')
+use_nltk = True
+if use_nltk:
+    import nltk
+    from nltk.tokenize import word_tokenize
+
+    nltk.download('punkt')
+
 model_name = "data/tweets.wv"
+tweets_file = "data/tweets.txt"
+
+
+def export_tweets_to_file(cursor):
+    cursor.execute(f"SELECT cleaned from tweets LIMIT {tweet_limit}")
+    with open(tweets_file, "w+", encoding="utf-8") as f:
+        for [tweet] in cursor:
+            f.write(tweet + "\n")
 
 
 def get_max_sentence_length(cursor):
@@ -23,32 +34,29 @@ sp = sentencepiece.SentencePieceProcessor()
 tokenizer_model_file = "data/tokenizer.model"
 
 
-def train_tokenizer(cursor):
-    cursor.execute("SELECT text from tweets")
-    vocab_file = "data/tweets.txt"
-    with open(vocab_file, "w+", encoding="utf-8") as f:
-        for [text] in cursor:
-            f.write(text + "\n")
-
+def train_tokenizer():
     print("Training tokenizer now")
-    sentencepiece.SentencePieceTrainer.Train(f'--input={vocab_file} --model_prefix=m --vocab_size=10000')
+    sentencepiece.SentencePieceTrainer.Train(f'--input={tweets_file} --model_prefix=m --vocab_size=10000')
     replace("m.model", tokenizer_model_file)
     replace("m.vocab", "data/tokenizer.vocab")
     print("Training tokenizer complete")
 
 
 def get_tokens(cursor):
-    cursor.execute("SELECT text from tweets")
-    for [row] in cursor:
-        tokens = [sp.id_to_piece(sp.bos_id()), *sp.encode_as_pieces(row), sp.id_to_piece(sp.eos_id())]
+    cursor.execute(f"SELECT cleaned from tweets LIMIT {tweet_limit}")
+    for [tweet] in cursor:
+        if use_nltk:
+            tokens = word_tokenize(tweet)
+        else:
+            tokens = [sp.id_to_piece(sp.bos_id()), *sp.encode_as_pieces(tweet), sp.id_to_piece(sp.eos_id())]
         yield tokens
 
 
 def get_w2v_model(cursor, retrain_w2v=False, retrain_tokenizer=False):
-    # Todo use the database text here
-    if retrain_tokenizer:
-        train_tokenizer(cursor)
-    sp.load(tokenizer_model_file)
+    if not use_nltk:
+        if retrain_tokenizer:
+            train_tokenizer()
+        sp.load(tokenizer_model_file)
 
     if retrain_w2v:
         print("Building word2vec vocabulary")
