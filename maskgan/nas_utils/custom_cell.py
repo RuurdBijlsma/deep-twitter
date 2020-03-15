@@ -21,7 +21,7 @@ import collections
 import numpy as np
 import tensorflow as tf
 
-flags = tf.flags
+flags = tf.compat.v1.flags
 FLAGS = tf.compat.v1.flags.FLAGS
 LSTMTuple = collections.namedtuple('LSTMTuple', ['c', 'h'])
 

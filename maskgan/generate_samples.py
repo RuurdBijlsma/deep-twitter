@@ -278,4 +278,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-  tf.compat.v1.run()
+  tf.compat.v1.app.run()
