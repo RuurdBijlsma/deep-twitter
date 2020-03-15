@@ -25,8 +25,8 @@ import numpy as np
 
 import tensorflow as tf
 
-FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_boolean('prefix_label', True, 'Vocabulary file.')
+FLAGS = tf.compat.v1.flags.FLAGS
+tf.compat.v1.flags.DEFINE_boolean('prefix_label', True, 'Vocabulary file.')
 
 np.set_printoptions(precision=3)
 np.set_printoptions(suppress=True)

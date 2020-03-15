@@ -29,7 +29,7 @@ import tensorflow as tf
 from model_utils import helper
 from model_utils import n_gram
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def print_and_log_losses(log, step, is_present_rate, avg_dis_loss,

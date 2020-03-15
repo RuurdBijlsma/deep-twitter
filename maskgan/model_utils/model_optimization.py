@@ -23,7 +23,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def create_dis_pretrain_op(hparams, dis_loss, global_step):

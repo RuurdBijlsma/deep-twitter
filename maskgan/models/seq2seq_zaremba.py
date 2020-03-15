@@ -23,7 +23,7 @@ import tensorflow as tf
 from six.moves import xrange
 from models import attention_utils
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def transform_input_with_is_missing_token(inputs, targets_present):

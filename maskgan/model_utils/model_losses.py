@@ -27,7 +27,7 @@ import tensorflow as tf
 # Useful for REINFORCE baseline.
 from losses import losses
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def create_dis_loss(fake_predictions, real_predictions, targets_present):

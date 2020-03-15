@@ -53,17 +53,17 @@ SAMPLE_VALIDATION = 'VALIDATION'
 
 ## Sample Generation.
 ## Binary and setup FLAGS.
-tf.app.flags.DEFINE_enum('sample_mode', 'TRAIN',
+tf.compat.v1.flags.DEFINE_enum('sample_mode', 'TRAIN',
                          [SAMPLE_TRAIN, SAMPLE_VALIDATION],
                          'Dataset to sample from.')
-tf.app.flags.DEFINE_string('output_path', '/tmp', 'Model output directory.')
-tf.app.flags.DEFINE_boolean(
+tf.compat.v1.flags.DEFINE_string('output_path', '/tmp', 'Model output directory.')
+tf.compat.v1.flags.DEFINE_boolean(
     'output_masked_logs', False,
     'Whether to display for human evaluation (show masking).')
-tf.app.flags.DEFINE_integer('number_epochs', 1,
+tf.compat.v1.flags.DEFINE_integer('number_epochs', 1,
                             'The number of epochs to produce.')
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def get_iterator(data):
@@ -278,4 +278,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-  tf.app.run()
+  tf.compat.v1.run()

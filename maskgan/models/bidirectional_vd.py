@@ -22,7 +22,7 @@ from __future__ import print_function
 import tensorflow as tf
 from regularization import variational_dropout
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def discriminator(hparams,

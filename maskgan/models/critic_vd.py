@@ -23,7 +23,7 @@ from six.moves import xrange
 import tensorflow as tf
 from regularization import variational_dropout
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def critic_seq2seq_vd_derivative(hparams, sequence, is_training, reuse=None):

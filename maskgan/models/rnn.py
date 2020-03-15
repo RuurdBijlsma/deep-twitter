@@ -25,7 +25,7 @@ import tensorflow as tf
 # ZoneoutWrapper.
 from regularization import zoneout
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def generator(hparams,

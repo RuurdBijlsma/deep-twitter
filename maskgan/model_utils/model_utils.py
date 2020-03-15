@@ -25,7 +25,7 @@ import numpy as np
 import tensorflow as tf
 from model_utils import variable_mapping
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def generate_mask():

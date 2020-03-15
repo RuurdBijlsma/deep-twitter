@@ -22,7 +22,7 @@ import numpy as np
 import tensorflow as tf
 
 flags = tf.flags
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 LSTMTuple = collections.namedtuple('LSTMTuple', ['c', 'h'])
 
 
@@ -33,7 +33,7 @@ def cell_depth(num):
   return int(val)
 
 
-class GenericMultiRNNCell(tf.contrib.rnn.RNNCell):
+class GenericMultiRNNCell(tf.compat.v1.nn.rnn_cell.RNNCell):
   """More generic version of MultiRNNCell that allows you to pass in a dropout mask"""
 
   def __init__(self, cells):
@@ -76,7 +76,7 @@ class GenericMultiRNNCell(tf.contrib.rnn.RNNCell):
     return cur_inp, new_states
 
 
-class AlienRNNBuilder(tf.contrib.rnn.RNNCell):
+class AlienRNNBuilder(tf.compat.v1.nn.rnn_cell.RNNCell):
 
   def __init__(self, num_units, params, additional_params, base_size):
     self.num_units = num_units

@@ -32,14 +32,14 @@ from data import ptb_loader
 from model_utils import model_utils
 from models import evaluation_utils
 
-tf.app.flags.DEFINE_integer(
+tf.compat.v1.flags.DEFINE_integer(
     'gen_pretrain_steps', None,
     'The number of steps to pretrain the generator with cross entropy loss.')
-tf.app.flags.DEFINE_integer(
+tf.compat.v1.flags.DEFINE_integer(
     'dis_pretrain_steps', None,
     'The number of steps to pretrain the discriminator.')
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def pretrain_generator(sv, sess, model, data, log, id_to_word,

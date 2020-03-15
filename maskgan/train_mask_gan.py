@@ -75,133 +75,133 @@ MODE_VALIDATION = 'VALIDATION'
 MODE_TEST = 'TEST'
 
 ## Binary and setup FLAGS.
-tf.app.flags.DEFINE_enum(
+tf.compat.v1.flags.DEFINE_enum(
     'mode', 'TRAIN', [MODE_TRAIN, MODE_VALIDATION, MODE_TEST, MODE_TRAIN_EVAL],
     'What this binary will do.')
-tf.app.flags.DEFINE_string('master', '',
+tf.compat.v1.flags.DEFINE_string('master', '',
                            """Name of the TensorFlow master to use.""")
-tf.app.flags.DEFINE_string('eval_master', '',
+tf.compat.v1.flags.DEFINE_string('eval_master', '',
                            """Name prefix of the Tensorflow eval master.""")
-tf.app.flags.DEFINE_integer('task', 0,
+tf.compat.v1.flags.DEFINE_integer('task', 0,
                             """Task id of the replica running the training.""")
-tf.app.flags.DEFINE_integer('ps_tasks', 0, """Number of tasks in the ps job.
+tf.compat.v1.flags.DEFINE_integer('ps_tasks', 0, """Number of tasks in the ps job.
                             If 0 no ps job is used.""")
 
 ## General FLAGS.
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'hparams', '', 'Comma separated list of name=value hyperparameter pairs.')
-tf.app.flags.DEFINE_integer('batch_size', 20, 'The batch size.')
-tf.app.flags.DEFINE_integer('vocab_size', 10000, 'The vocabulary size.')
-tf.app.flags.DEFINE_integer('sequence_length', 20, 'The sequence length.')
-tf.app.flags.DEFINE_integer('max_steps', 1000000,
+tf.compat.v1.flags.DEFINE_integer('batch_size', 20, 'The batch size.')
+tf.compat.v1.flags.DEFINE_integer('vocab_size', 10000, 'The vocabulary size.')
+tf.compat.v1.flags.DEFINE_integer('sequence_length', 20, 'The sequence length.')
+tf.compat.v1.flags.DEFINE_integer('max_steps', 1000000,
                             'Maximum number of steps to run.')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'mask_strategy', 'random', 'Strategy for masking the words.  Determine the '
     'characterisitics of how the words are dropped out.  One of '
     "['contiguous', 'random'].")
-tf.app.flags.DEFINE_float('is_present_rate', 0.5,
+tf.compat.v1.flags.DEFINE_float('is_present_rate', 0.5,
                           'Percent of tokens present in the forward sequence.')
-tf.app.flags.DEFINE_float('is_present_rate_decay', None, 'Decay rate for the '
+tf.compat.v1.flags.DEFINE_float('is_present_rate_decay', None, 'Decay rate for the '
                           'percent of words that are real (are present).')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'generator_model', 'seq2seq',
     "Type of Generator model.  One of ['rnn', 'seq2seq', 'seq2seq_zaremba',"
     "'rnn_zaremba', 'rnn_nas', 'seq2seq_nas']")
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'attention_option', None,
     "Attention mechanism.  One of [None, 'luong', 'bahdanau']")
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'discriminator_model', 'bidirectional',
     "Type of Discriminator model.  One of ['cnn', 'rnn', 'bidirectional', "
     "'rnn_zaremba', 'bidirectional_zaremba', 'rnn_nas', 'rnn_vd', 'seq2seq_vd']"
 )
-tf.app.flags.DEFINE_boolean('seq2seq_share_embedding', False,
+tf.compat.v1.flags.DEFINE_boolean('seq2seq_share_embedding', False,
                             'Whether to share the '
                             'embeddings between the encoder and decoder.')
-tf.app.flags.DEFINE_boolean(
+tf.compat.v1.flags.DEFINE_boolean(
     'dis_share_embedding', False, 'Whether to share the '
     'embeddings between the generator and discriminator.')
-tf.app.flags.DEFINE_boolean('dis_update_share_embedding', False, 'Whether the '
+tf.compat.v1.flags.DEFINE_boolean('dis_update_share_embedding', False, 'Whether the '
                             'discriminator should update the shared embedding.')
-tf.app.flags.DEFINE_boolean('use_gen_mode', False,
+tf.compat.v1.flags.DEFINE_boolean('use_gen_mode', False,
                             'Use the mode of the generator '
                             'to produce samples.')
-tf.app.flags.DEFINE_boolean('critic_update_dis_vars', False,
+tf.compat.v1.flags.DEFINE_boolean('critic_update_dis_vars', False,
                             'Whether the critic '
                             'updates the discriminator variables.')
 
 ## Training FLAGS.
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'gen_training_strategy', 'reinforce',
     "Method for training the Generator. One of ['cross_entropy', 'reinforce']")
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'generator_optimizer', 'adam',
     "Type of Generator optimizer.  One of ['sgd', 'adam']")
-tf.app.flags.DEFINE_float('grad_clipping', 10., 'Norm for gradient clipping.')
-tf.app.flags.DEFINE_float('advantage_clipping', 5., 'Clipping for advantages.')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_float('grad_clipping', 10., 'Norm for gradient clipping.')
+tf.compat.v1.flags.DEFINE_float('advantage_clipping', 5., 'Clipping for advantages.')
+tf.compat.v1.flags.DEFINE_string(
     'baseline_method', None,
     "Approach for baseline.  One of ['critic', 'dis_batch', 'ema', None]")
-tf.app.flags.DEFINE_float('perplexity_threshold', 15000,
+tf.compat.v1.flags.DEFINE_float('perplexity_threshold', 15000,
                           'Limit for perplexity before terminating job.')
-tf.app.flags.DEFINE_float('zoneout_drop_prob', 0.1,
+tf.compat.v1.flags.DEFINE_float('zoneout_drop_prob', 0.1,
                           'Probability for dropping parameter for zoneout.')
-tf.app.flags.DEFINE_float('keep_prob', 0.5,
+tf.compat.v1.flags.DEFINE_float('keep_prob', 0.5,
                           'Probability for keeping parameter for dropout.')
 
 ## Logging and evaluation FLAGS.
-tf.app.flags.DEFINE_integer('print_every', 250,
+tf.compat.v1.flags.DEFINE_integer('print_every', 250,
                             'Frequency to print and log the '
                             'outputs of the model.')
-tf.app.flags.DEFINE_integer('max_num_to_print', 5,
+tf.compat.v1.flags.DEFINE_integer('max_num_to_print', 5,
                             'Number of samples to log/print.')
-tf.app.flags.DEFINE_boolean('print_verbose', False, 'Whether to print in full.')
-tf.app.flags.DEFINE_integer('summaries_every', 100,
+tf.compat.v1.flags.DEFINE_boolean('print_verbose', False, 'Whether to print in full.')
+tf.compat.v1.flags.DEFINE_integer('summaries_every', 100,
                             'Frequency to compute summaries.')
-tf.app.flags.DEFINE_boolean('eval_language_model', False,
+tf.compat.v1.flags.DEFINE_boolean('eval_language_model', False,
                             'Whether to evaluate on '
                             'all words as in language modeling.')
-tf.app.flags.DEFINE_float('eval_interval_secs', 60,
+tf.compat.v1.flags.DEFINE_float('eval_interval_secs', 60,
                           'Delay for evaluating model.')
-tf.app.flags.DEFINE_integer(
+tf.compat.v1.flags.DEFINE_integer(
     'n_gram_eval', 4, """The degree of the n-grams to use for evaluation.""")
-tf.app.flags.DEFINE_integer(
+tf.compat.v1.flags.DEFINE_integer(
     'epoch_size_override', None,
     'If an integer, this dictates the size of the epochs and will potentially '
     'not iterate over all the data.')
-tf.app.flags.DEFINE_integer('eval_epoch_size_override', None,
+tf.compat.v1.flags.DEFINE_integer('eval_epoch_size_override', None,
                             'Number of evaluation steps.')
 
 ## Directories and checkpoints.
-tf.app.flags.DEFINE_string('base_directory', '/tmp/maskGAN_v0.00',
+tf.compat.v1.flags.DEFINE_string('base_directory', '/tmp/maskGAN_v0.00',
                            'Base directory for the logging, events and graph.')
-tf.app.flags.DEFINE_string('data_set', 'ptb', 'Data set to operate on.  One of'
+tf.compat.v1.flags.DEFINE_string('data_set', 'ptb', 'Data set to operate on.  One of'
                            "['ptb', 'imdb']")
-tf.app.flags.DEFINE_string('data_dir', '/tmp/data/ptb',
+tf.compat.v1.flags.DEFINE_string('data_dir', '/tmp/data/ptb',
                            'Directory for the training data.')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'language_model_ckpt_dir', None,
     'Directory storing checkpoints to initialize the model.  Pretrained models'
     'are stored at /tmp/maskGAN/pretrained/')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'language_model_ckpt_dir_reversed', None,
     'Directory storing checkpoints of reversed models to initialize the model.'
     'Pretrained models stored at'
     'are stored at  /tmp/PTB/pretrained_reversed')
-tf.app.flags.DEFINE_string(
+tf.compat.v1.flags.DEFINE_string(
     'maskgan_ckpt', None,
     'Override which checkpoint file to use to restore the '
     'model.  A pretrained seq2seq_zaremba model is stored at '
     '/tmp/maskGAN/pretrain/seq2seq_zaremba/train/model.ckpt-64912')
 
-tf.app.flags.DEFINE_boolean('wasserstein_objective', False,
+tf.compat.v1.flags.DEFINE_boolean('wasserstein_objective', False,
                             '(DEPRECATED) Whether to use the WGAN training.')
-tf.app.flags.DEFINE_integer('num_rollouts', 1,
+tf.compat.v1.flags.DEFINE_integer('num_rollouts', 1,
                             'The number of rolled out predictions to make.')
-tf.app.flags.DEFINE_float('c_lower', -0.01, 'Lower bound for weights.')
-tf.app.flags.DEFINE_float('c_upper', 0.01, 'Upper bound for weights.')
+tf.compat.v1.flags.DEFINE_float('c_lower', -0.01, 'Lower bound for weights.')
+tf.compat.v1.flags.DEFINE_float('c_upper', 0.01, 'Upper bound for weights.')
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def create_hparams():
@@ -1164,4 +1164,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-  tf.app.run()
+  tf.compat.v1.run()

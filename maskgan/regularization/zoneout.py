@@ -22,7 +22,7 @@ from __future__ import print_function
 import tensorflow as tf
 
 
-class ZoneoutWrapper(tf.contrib.rnn.RNNCell):
+class ZoneoutWrapper(tf.compat.v1.nn.rnn_cell.RNNCell):
   """Add Zoneout to a RNN cell."""
 
   def __init__(self, cell, zoneout_drop_prob, is_training=True):

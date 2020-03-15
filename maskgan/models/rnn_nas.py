@@ -28,7 +28,7 @@ from nas_utils import configs
 from nas_utils import custom_cell
 from nas_utils import variational_dropout
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def get_config():

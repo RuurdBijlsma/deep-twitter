@@ -22,7 +22,7 @@ from __future__ import print_function
 import tensorflow as tf
 
 
-class VariationalDropoutWrapper(tf.contrib.rnn.RNNCell):
+class VariationalDropoutWrapper(tf.compat.v1.nn.rnn_cell.RNNCell):
   """Add variational dropout to a RNN cell."""
 
   def __init__(self, cell, batch_size, input_size, recurrent_keep_prob,

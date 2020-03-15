@@ -38,7 +38,7 @@ from models import seq2seq_nas
 from models import seq2seq_vd
 from models import seq2seq_zaremba
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 # TODO(adai): IMDB labels placeholder to model.

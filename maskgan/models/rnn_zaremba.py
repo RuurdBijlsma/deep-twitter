@@ -22,7 +22,7 @@ from __future__ import print_function
 from six.moves import xrange
 import tensorflow as tf
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def generator(hparams,

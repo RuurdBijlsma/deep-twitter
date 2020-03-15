@@ -37,17 +37,17 @@ import numpy as np
 
 import tensorflow as tf
 
-tf.app.flags.DEFINE_string('input_ml_path', '/tmp', 'Model output directory.')
-tf.app.flags.DEFINE_string('input_gan_path', '/tmp', 'Model output directory.')
-tf.app.flags.DEFINE_string('output_file_name', '/tmp/ptb/shuffled_output.txt',
+tf.compat.v1.flags.DEFINE_string('input_ml_path', '/tmp', 'Model output directory.')
+tf.compat.v1.flags.DEFINE_string('input_gan_path', '/tmp', 'Model output directory.')
+tf.compat.v1.flags.DEFINE_string('output_file_name', '/tmp/ptb/shuffled_output.txt',
                            'Model output file.')
-tf.app.flags.DEFINE_boolean(
+tf.compat.v1.flags.DEFINE_boolean(
     'output_masked_logs', False,
     'Whether to display for human evaluation (show masking).')
-tf.app.flags.DEFINE_integer('number_epochs', 1,
+tf.compat.v1.flags.DEFINE_integer('number_epochs', 1,
                             'The number of epochs to produce.')
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def shuffle_samples(input_file_1, input_file_2):
@@ -92,4 +92,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-  tf.app.run()
+  tf.compat.v1.run()

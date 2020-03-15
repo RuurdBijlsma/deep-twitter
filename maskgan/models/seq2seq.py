@@ -26,7 +26,7 @@ from models import attention_utils
 # ZoneoutWrapper.
 from regularization import zoneout
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def transform_input_with_is_missing_token(inputs, targets_present):

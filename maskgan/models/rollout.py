@@ -30,7 +30,7 @@ from model_utils import model_construction
 from model_utils import model_losses
 from model_utils import model_optimization
 
-FLAGS = tf.app.flags.FLAGS
+FLAGS = tf.compat.v1.flags.FLAGS
 
 
 def create_rollout_MaskGAN(hparams, is_training):
