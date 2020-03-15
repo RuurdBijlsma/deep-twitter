@@ -11,3 +11,4 @@ cp.ckpt
 tweets.txt
 tokenizer.*
 .DS_Store
+deep_twitter.code-workspace
