@@ -203,10 +203,11 @@ tf.compat.v1.flags.DEFINE_float('c_upper', 0.01, 'Upper bound for weights.')
 
 FLAGS = tf.compat.v1.flags.FLAGS
 
+from tensor2tensor.utils import hparam as hp 
 
 def create_hparams():
   """Create the hparams object for generic training hyperparameters."""
-  hparams = tf.contrib.training.HParams(
+  hparams = hp.HParams(
       gen_num_layers=2,
       dis_num_layers=2,
       gen_rnn_size=740,
@@ -229,6 +230,7 @@ def create_hparams():
       dis_nas_keep_prob_0=0.85,
       dis_nas_keep_prob_1=0.55)
   # Command line flags override any of the preceding hyperparameter values.
+
   if FLAGS.hparams:
     hparams = hparams.parse(FLAGS.hparams)
   return hparams
@@ -1129,16 +1131,16 @@ def main(_):
   FLAGS.vocab_size = len(id_to_word)
   print('Vocab size: %d' % FLAGS.vocab_size)
 
-  tf.gfile.MakeDirs(FLAGS.base_directory)
+  tf.io.gfile.MakeDirs(FLAGS.base_directory)
 
   if FLAGS.mode == MODE_TRAIN:
-    log = tf.gfile.GFile(
+    log = tf.io.gfile.GFile(
         os.path.join(FLAGS.base_directory, 'train-log.txt'), mode='w')
   elif FLAGS.mode == MODE_VALIDATION:
-    log = tf.gfile.GFile(
+    log = tf.io.gfile.GFile(
         os.path.join(FLAGS.base_directory, 'validation-log.txt'), mode='w')
   elif FLAGS.mode == MODE_TRAIN_EVAL:
-    log = tf.gfile.GFile(
+    log = tf.io.gfile.GFile(
         os.path.join(FLAGS.base_directory, 'train_eval-log.txt'), mode='w')
   else:
     log = tf.gfile.GFile(

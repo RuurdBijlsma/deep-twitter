@@ -240,8 +240,8 @@ def main(_):
   hparams = train_mask_gan.create_hparams()
   log_dir = FLAGS.base_directory
 
-  tf.gfile.MakeDirs(FLAGS.output_path)
-  output_file = tf.gfile.GFile(
+  tf.io.gfile.MakeDirs(FLAGS.output_path)
+  output_file = tf.io.gfile.GFile(
       os.path.join(FLAGS.output_path, 'reviews.txt'), mode='w')
 
   # Load data set.
