@@ -23,7 +23,6 @@ def get_tlds(csv_file_name="data/tlds.csv"):
 
 tlds = list(get_tlds())
 
-
 def import_csv_to_db(cursor, csv_file_name="data/training_tweets.csv"):
     line = 0
     total_tweets = 1600000
