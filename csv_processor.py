@@ -26,8 +26,9 @@ tlds = list(get_tlds())
 def import_csv_to_db(cursor, csv_file_name="data/training_tweets.csv"):
     line = 0
     total_tweets = 1600000
-    with open(csv_file_name, "rt") as csv_file:
+    with open(csv_file_name, "rt", encoding='utf-8') as csv_file:
         data_reader = csv.reader(csv_file)
+        print(type(data_reader))
         for [_, _, _, _, user, text] in data_reader:
             line += 1
             cleaned = remove_url(text)

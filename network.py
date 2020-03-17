@@ -8,6 +8,7 @@ from keras.models import Sequential
 import keras
 from prepare_data import get_tokens, sp
 
+model_select = 'LSTM' 
 
 def pre_train_model(cursor, word_model):
     checkpoint_path = "data/cp.ckpt"
@@ -47,13 +48,17 @@ def pre_train_model(cursor, word_model):
     print('train_x shape:', train_x.shape)
     print('train_y shape:', train_y.shape)
 
-    print('\nTraining LSTM...')
-    model = Sequential()
-    model.add(Embedding(input_dim=vocab_size, output_dim=emdedding_size, weights=[pretrained_weights]))
-    model.add(LSTM(units=emdedding_size))
-    model.add(Dense(units=vocab_size))
-    model.add(Activation('softmax'))
-    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+    
+    if model_select == 'LSTM':
+        print('\nTraining LSTM...')
+        model = Sequential()
+        model.add(Embedding(input_dim=vocab_size, output_dim=emdedding_size, weights=[pretrained_weights]))
+        model.add(LSTM(units=emdedding_size))
+        model.add(Dense(units=vocab_size))
+        model.add(Activation('softmax'))
+        model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+    if model_select == 'GAN': 
+        model = gan
 
     def sample(preds, temperature=1.0):
         if temperature <= 0:
