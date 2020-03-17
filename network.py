@@ -7,14 +7,16 @@ from keras.layers import Dense, Activation
 from keras.models import Sequential
 import keras
 from prepare_data import get_tokens, sp
+from variables import tweet_limit
 
 model_select = 'LSTM' 
 
 def pre_train_model(cursor, word_model):
     checkpoint_path = "data/cp.ckpt"
 
-    cursor.execute("SELECT count(cleaned) from tweets")
+    cursor.execute(f"SELECT count(cleaned) from tweets")
     (tweet_count,) = cursor.fetchone()
+    tweet_count = min(tweet_count, tweet_limit)
     cursor.execute("""
                     SELECT max_sentence_length
                     FROM metadata
