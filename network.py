@@ -7,7 +7,7 @@ from keras.layers import Dense, Activation
 from keras.models import Sequential
 import keras
 from prepare_data import get_tokens, sp
-from variables import tweet_limit
+from variables import tweet_limit, use_nltk, sos, eos
 
 model_select = 'LSTM' 
 
@@ -72,22 +72,23 @@ def pre_train_model(cursor, word_model):
         probas = np.random.multinomial(1, preds, 1)
         return np.argmax(probas)
 
-    def generate_next(text, num_generated=10):
+    def generate_next(text, num_generated=15):
         word_idxs = [word2idx(word) for word in text.lower().split()]
-        for i in range(num_generated):
+        for _ in range(num_generated):
             prediction = model.predict(x=np.array(word_idxs))
             idx = sample(prediction[-1], temperature=0.7)
             word_idxs.append(idx)
-        return sp.decode_pieces(list(map(lambda idx: idx2word(idx), word_idxs)))
+            if idx == eos:
+                break
+        pieces = list(map(lambda idx: idx2word(idx), word_idxs))
+        if use_nltk:
+            return ' '.join(pieces)
+        result = sp.decode_pieces(pieces)
+        return result
 
     def on_epoch_end(epoch, _):
         print('\nGenerating text after epoch: %d' % epoch)
-        # TODO: Change prediction start thing from 55 yearrrrrs to styart of sentence token
-        texts = [
-            '<s>',
-            '<s>',
-            '<s>',
-        ]
+        texts = [sos, sos, sos]
         for text in texts:
             sample = generate_next(text)
             print('%s... -> %s' % (text, sample))

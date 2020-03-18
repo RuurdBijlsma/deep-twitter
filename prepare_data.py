@@ -1,9 +1,8 @@
 from gensim.models import Word2Vec, KeyedVectors
 import sentencepiece
 from os import cpu_count, replace
-from variables import tweet_limit
+from variables import tweet_limit, use_nltk, sos, eos
 
-use_nltk = True
 if use_nltk:
     import nltk
     from nltk.tokenize import word_tokenize
@@ -46,12 +45,12 @@ def get_tokens(cursor):
     cursor.execute(f"SELECT cleaned from tweets LIMIT {tweet_limit}")
     for [tweet] in cursor:
         if use_nltk:
-            tokens = word_tokenize(tweet)
+            tokens = [sos] + word_tokenize(tweet) + [eos]
         else:
-            tokens = [sp.id_to_piece(sp.bos_id()), *sp.encode_as_pieces(tweet), sp.id_to_piece(sp.eos_id())]
+            tokens = [sos] + sp.encode_as_pieces(tweet) + [eos]
         yield tokens
 
-
+3
 def get_w2v_model(cursor, retrain_w2v=False, retrain_tokenizer=False):
     if not use_nltk:
         if retrain_tokenizer:
