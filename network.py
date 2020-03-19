@@ -9,7 +9,10 @@ import keras
 from prepare_data import get_tokens, sp
 from variables import tweet_limit, use_nltk, sos, eos
 
-model_select = 'LSTM' 
+import gan 
+
+#LSTM,GAN 
+model_select = 'GAN' 
 
 def pre_train_model(cursor, word_model):
     checkpoint_path = "data/cp.ckpt"
@@ -60,7 +63,7 @@ def pre_train_model(cursor, word_model):
         model.add(Activation('softmax'))
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
     if model_select == 'GAN': 
-        model = gan
+        model = gan.GAN() 
 
     def sample(preds, temperature=1.0):
         if temperature <= 0:
@@ -99,9 +102,13 @@ def pre_train_model(cursor, word_model):
                                                   verbose=1)
 
     model.summary()
-    model.fit(train_x, train_y,
-              batch_size=128,
-              epochs=20,
-              callbacks=[cp_callback, LambdaCallback(on_epoch_end=on_epoch_end)])
+    if model_select == 'LSTM':
+        model.fit(train_x, train_y,
+                batch_size=128,
+                epochs=2,
+                callbacks=[cp_callback, LambdaCallback(on_epoch_end=on_epoch_end)])
+    if model_select=='GAN':
+        model.train(train_x, train_y, epochs=2, batch_size=128, sample_interval=50)
+    
 
     return model
