@@ -101,7 +101,7 @@ def pre_train_model(cursor, word_model):
                                                   save_weights_only=True,
                                                   verbose=1)
 
-    model.summary()
+    # model.summary()
     if model_select == 'LSTM':
         model.fit(train_x, train_y,
                 batch_size=128,

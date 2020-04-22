@@ -12,3 +12,9 @@ tweets.txt
 tokenizer.*
 .DS_Store
 deep_twitter.code-workspace
+data/.tweets.wv.model.icloud
+data/.tweets.wv.icloud
+data/.tweets.wv 2.model.icloud
+data/.tweets 2.wv.icloud
+.vscode/settings.json
+data/.cp.ckpt.icloud
