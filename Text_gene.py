@@ -4,7 +4,7 @@ textgen = textgenrnn()
 print('-Default textgenrnn-')
 textgen.generate()
 
-textgen.train_from_file('tweets.txt', num_epochs=1)   
+textgen.train_from_file('data/tweets.txt', num_epochs=1)   
 print('tweets fed::')
 textgen.generate()
 
